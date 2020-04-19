@@ -2,11 +2,15 @@ package com.example.valuablemoney.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.valuablemoney.model.AccountSignUp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseAcc extends SQLiteOpenHelper {
     private final String TAG = "DatabaseAcc";
@@ -50,5 +54,15 @@ public class DatabaseAcc extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close();
         Log.d(TAG, "addAccount Successfuly");
+    }
+
+    public boolean checkAcc(String user, String pass1){
+        SQLiteDatabase db = this.getReadableDatabase();
+       Cursor cursor =db.rawQuery("SELECT * FROM " +TABLE_NAME+ " where  username=? and  pass1=?", new String[]{user,pass1});
+        if (cursor.getCount()>0){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

@@ -6,6 +6,9 @@ public class AccountSignUp {
     private String pass1;
     private String pass2;
 
+    public AccountSignUp() {
+    }
+
     public AccountSignUp(int id, String username, String pass1, String pass2) {
         this.id = id;
         this.username = username;

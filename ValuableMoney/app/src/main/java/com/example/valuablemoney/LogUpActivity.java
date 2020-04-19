@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.valuablemoney.data.DatabaseAcc;
 import com.example.valuablemoney.model.AccountSignUp;
@@ -53,11 +54,20 @@ public class LogUpActivity extends AppCompatActivity {
     }
 
     private AccountSignUp createAccount() {
+
+        AccountSignUp accountSignUp = null;
         String user = edt_User.getText().toString();
         String pass1 = edt_Pass1.getText().toString();
         String pass2 = edt_Pass2.getText().toString();
 
-        AccountSignUp accountSignUp = new AccountSignUp(user,pass1,pass2);
+        if (user.equals("") ||pass1.equals("")|| pass2.equals("")){
+            Toast.makeText(this, "không được để trống", Toast.LENGTH_SHORT).show();
+        }else if (pass1.equals(pass2)){
+            accountSignUp = new AccountSignUp(user,pass1,pass2);
+        }
+        else {
+            Toast.makeText(this, "paas không giống nhau.", Toast.LENGTH_SHORT).show();
+        }
         return accountSignUp;
     }
 
