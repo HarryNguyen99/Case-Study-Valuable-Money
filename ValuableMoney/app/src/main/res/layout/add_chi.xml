@@ -9,18 +9,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:paddingTop="10dp"
         android:text="Thêm Khoản Chi"
         android:textColor="#FA0202"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
+        android:enabled="false"
+        android:id="@+id/edt_idChi"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edt_khoanchi"
+        android:hint="ID"
+        android:paddingLeft="10dp" />
+
+    <EditText
         android:id="@+id/edt_LyDoChi"
         android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edt_khoanchi"
         android:hint="Lý Do Chi"
         android:paddingLeft="10dp" />
@@ -30,7 +41,7 @@
         android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edt_khoanchi"
         android:hint="Nhập Số Tiền"
         android:paddingLeft="10dp" />
@@ -38,28 +49,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_Them"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:background="@drawable/button_chi"
             android:hint="Thêm"
             android:textColorHint="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
+
+        <Button
+            android:enabled="false"
+            android:id="@+id/btn_Sua"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_xacnhan"
+            android:hint="Sửa"
+            android:textColorHint="#ffffff"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_Huy"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_thu"
             android:hint="Hủy"
             android:textColorHint="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 

@@ -65,7 +65,7 @@ public class KhoanThuAdapter extends BaseAdapter {
         final KhoanThu khoanThu = khoanThuList.get(position);
 
         holder.tv_NguonThu.setText(khoanThu.getNguonthu());
-        holder.tv_TienThu.setText(khoanThu.getSotien());
+        holder.tv_TienThu.setText((CharSequence) khoanThu.getSotien());
 
         return view;
     }

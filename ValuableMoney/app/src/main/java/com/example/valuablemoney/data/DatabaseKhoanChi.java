@@ -63,13 +63,30 @@ public class DatabaseKhoanChi extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do {
                 KhoanChi khoanchi = new KhoanChi();
+                khoanchi.setId(cursor.getInt(0));
                 khoanchi.setLydochi(cursor.getString(1));
                 khoanchi.setSotienchi(cursor.getString(2));
                 listKhoanChi.add(khoanchi);
 
             }while (cursor.moveToNext());
         }
-
+        db.close();
         return listKhoanChi;
+    }
+
+    public int EditKhoanChi(KhoanChi khoanChi) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(LYDOCHI, khoanChi.getLydochi());
+        values.put(SOTIENCHI, khoanChi.getSotienchi());
+        int number = db.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(khoanChi.getId())});
+        if (number > 0)
+            Log.d(TAG,"EditKhoanChi Successfuly");
+        return number;
+    }
+
+    public int deleteChi(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, ID+"=?",new String[]{String.valueOf(id)});
     }
 }

@@ -53,31 +53,40 @@ public class DatabaseKhoanThu extends SQLiteOpenHelper {
         Log.d(TAG, "addKhoanThu Successfuly");
     }
 
-    public List<KhoanThu> getAllKhoanThu(){
+    public List<KhoanThu> getAllKhoanThu() {
         List<KhoanThu> listKhoanThu = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 KhoanThu khoanThu = new KhoanThu();
+                khoanThu.setId(cursor.getInt(0));
                 khoanThu.setNguonthu(cursor.getString(1));
                 khoanThu.setSotien(cursor.getString(2));
                 listKhoanThu.add(khoanThu);
 
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         db.close();
         return listKhoanThu;
     }
 
-    public int EditKhoanThu(KhoanThu khoanThu){
+    public int EditKhoanThu(KhoanThu khoanThu) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NGUONTHU, khoanThu.getNguonthu());
         values.put(SOTIEN, khoanThu.getSotien());
-        return db.update(TABLE_NAME, values, ID +"=?",new String[]{String.valueOf(khoanThu.getId())});
+        int number = db.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(khoanThu.getId())});
+        if (number > 0)
+            Log.d(TAG,"EditKhoanThu Successfuly");
+            return number;
+    }
+
+    public int deleteThu(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, ID+"=?",new String[]{String.valueOf(id)});
     }
 }

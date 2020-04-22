@@ -24,17 +24,12 @@ public class MainActivity extends AppCompatActivity {
     TextView tv_Thu, tv_Chi, tvConLai;
     Button btn_Thu, btn_Chi;
 
-
-
     private void AnhXa(){
         tv_Thu = findViewById(R.id.tv_KhoanThu);
         tv_Chi = findViewById(R.id.tv_KhoanChi);
         tvConLai = findViewById(R.id.tv_ConLai);
         btn_Thu = findViewById(R.id.btn_KhoanThu);
         btn_Chi = findViewById(R.id.btn_KhoanChi);
-
-
-
     }
 
     @Override
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         AnhXa();
         KhoanThu();
         KhoanChi();
-       // FormatNum();
+        tongKhoanThu ();
     }
 
     private void KhoanThu(){
@@ -71,12 +66,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    private String FormatNum(){
-//        int TQKhoanThu = tv_Thu;
-//        Locale locale = new Locale("vi", "VN");
-//        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
-//        numberFormat.setRoundingMode(RoundingMode.HALF_UP);
-//        return numberFormat.format(TQKhoanThu);
-//    }
+    private void tongKhoanThu (){
+        KhoanThu khoanThu = new KhoanThu();
+
+
+        tv_Thu.setText(khoanThu.getSotien());
+
+    }
+
 
 }
