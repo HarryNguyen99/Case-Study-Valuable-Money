@@ -47,7 +47,9 @@ public class LogUpActivity extends AppCompatActivity {
                 if (account != null){
                     databaseAcc.addAccount(account);
                 }
-
+                edt_User.setText("");
+                edt_Pass1.setText("");
+                edt_Pass2.setText("");
             }
         });
 

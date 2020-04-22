@@ -1,71 +1,82 @@
 package com.example.valuablemoney;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
+import com.example.valuablemoney.adapter.KhoanChiAdapter;
+import com.example.valuablemoney.adapter.KhoanThuAdapter;
+import com.example.valuablemoney.data.DatabaseKhoanChi;
+import com.example.valuablemoney.data.DatabaseKhoanThu;
+import com.example.valuablemoney.model.KhoanChi;
+import com.example.valuablemoney.model.KhoanThu;
 
-import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
 
-    private AppBarConfiguration mAppBarConfiguration;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView tv_Thu, tv_Chi, tvConLai;
+    Button btn_Thu, btn_Chi;
+
+
+
+    private void AnhXa(){
+        tv_Thu = findViewById(R.id.tv_KhoanThu);
+        tv_Chi = findViewById(R.id.tv_KhoanChi);
+        tvConLai = findViewById(R.id.tv_ConLai);
+        btn_Thu = findViewById(R.id.btn_KhoanThu);
+        btn_Chi = findViewById(R.id.btn_KhoanChi);
+
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        AnhXa();
+        KhoanThu();
+        KhoanChi();
+       // FormatNum();
+    }
+
+    private void KhoanThu(){
+
+        btn_Thu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AddKhoanThu.class);
+                startActivity(intent);
+
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.it_Thu, R.id.it_Chi, R.id.it_SignOut)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    private void KhoanChi(){
+        btn_Chi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AddKhoanChi.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+//    private String FormatNum(){
+//        int TQKhoanThu = tv_Thu;
+//        Locale locale = new Locale("vi", "VN");
+//        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
+//        numberFormat.setRoundingMode(RoundingMode.HALF_UP);
+//        return numberFormat.format(TQKhoanThu);
+//    }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-       return false;
-    }
 }

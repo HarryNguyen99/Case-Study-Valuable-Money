@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="6"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_NguonThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nguồn thu"
+            android:textSize="30sp"
+            android:textColor="#5CFB00"/>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_TienThu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5000000"
+                android:textSize="25sp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="VNĐ"
+                android:textSize="25sp"
+                android:textColor="#000000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/img_editThu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_edit"
+            android:background="#F4D300"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"/>
+
+        <ImageView
+            android:id="@+id/img_deleteThu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_delete"
+            android:background="#FA0303"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
