@@ -2,12 +2,17 @@ package com.example.valuablemoney;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,29 +21,38 @@ import com.example.valuablemoney.adapter.KhoanThuAdapter;
 import com.example.valuablemoney.data.DatabaseKhoanThu;
 import com.example.valuablemoney.model.KhoanThu;
 
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class AddKhoanThu extends AppCompatActivity {
+    TextView tv_TongThu;
     Button btn_Them, btn_Huy, btn_XacNhan;
+    ImageView img_Delete;
     DatabaseKhoanThu databaseKhoanThu;
     EditText edt_Nguonthu, edt_sotien, edit_Id;
-    TextView tv_Thu;
     ListView lv_Thu;
     KhoanThuAdapter adapterThu;
     List<KhoanThu> khoanThuList;
 
     private void AnhXa() {
+        tv_TongThu = findViewById(R.id.tv_TongThu);
         edt_Nguonthu = findViewById(R.id.edt_nguonthu);
         edt_sotien = findViewById(R.id.edt_sotien);
         edit_Id = findViewById(R.id.edt_id);
+        img_Delete = findViewById(R.id.img_deleteThu);
         btn_Them = findViewById(R.id.btn_Them);
         btn_Huy = findViewById(R.id.btn_Huy);
-        tv_Thu = findViewById(R.id.tv_KhoanThu);
         btn_XacNhan = findViewById(R.id.btn_XacNhan);
         databaseKhoanThu = new DatabaseKhoanThu(this);
         lv_Thu = findViewById(R.id.lv_Thu);
         khoanThuList = databaseKhoanThu.getAllKhoanThu();
         lv_Thu.setAdapter(adapterThu);
+
     }
 
     @Override
@@ -47,10 +61,12 @@ public class AddKhoanThu extends AppCompatActivity {
         setContentView(R.layout.add_thu);
         AnhXa();
         KhoanThu();
+        sapXepListView();
         Huy();
         setAdapterThu();
         editKhoanThu();
         deleteThu();
+        tongThu();
     }
 
     private void KhoanThu() {
@@ -64,15 +80,15 @@ public class AddKhoanThu extends AppCompatActivity {
                 }
                 khoanThuList.clear();
                 khoanThuList.addAll(databaseKhoanThu.getAllKhoanThu());
+                sapXepListView();
                 setAdapterThu();
+                tongThu();
 
                 edt_Nguonthu.getText().clear();
                 edt_sotien.getText().clear();
 
             }
         });
-
-
     }
 
     private void Huy() {
@@ -86,11 +102,16 @@ public class AddKhoanThu extends AppCompatActivity {
     }
 
     private KhoanThu createKhoanThu() {
-
+        KhoanThu khoanThu = null;
         String nguonthu = edt_Nguonthu.getText().toString();
         String sotien = edt_sotien.getText().toString();
-
-        KhoanThu khoanThu = new KhoanThu(nguonthu, sotien);
+        if (nguonthu.equals("") || sotien.equals("")) {
+            Toast.makeText(this, "Không để để trống", Toast.LENGTH_SHORT).show();
+        } else if (Integer.parseInt(sotien) <= 0) {
+            Toast.makeText(this, "Nhập sai số tiền", Toast.LENGTH_SHORT).show();
+        } else {
+            khoanThu = new KhoanThu(nguonthu, sotien);
+        }
         return khoanThu;
     }
 
@@ -100,7 +121,6 @@ public class AddKhoanThu extends AppCompatActivity {
             lv_Thu.setAdapter(adapterThu);
         } else {
             adapterThu.notifyDataSetChanged();
-            lv_Thu.setSelection(adapterThu.getCount() - 1);
         }
 
     }
@@ -128,6 +148,8 @@ public class AddKhoanThu extends AppCompatActivity {
                 int result = databaseKhoanThu.EditKhoanThu(khoanThu);
                 if (result > 0) {
                     updateListKhoanThu();
+                    sapXepListView();
+                    tongThu();
                     edit_Id.getText().clear();
                     edt_Nguonthu.getText().clear();
                     edt_sotien.getText().clear();
@@ -142,31 +164,69 @@ public class AddKhoanThu extends AppCompatActivity {
     }
 
     private void deleteThu() {
+
         lv_Thu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                KhoanThu khoanThu = khoanThuList.get(position);
-                int result = databaseKhoanThu.deleteThu(khoanThu.getId());
-                if (result > 0) {
-                    Toast.makeText(AddKhoanThu.this, "Đã Xóa " + khoanThu.getNguonthu()
-                            + " Thành Công", Toast.LENGTH_SHORT).show();
-                    updateListKhoanThu();
-                } else {
-                    Toast.makeText(AddKhoanThu.this, "Đã Xóa " + khoanThu.getNguonthu()
-                            + " Thất Bại", Toast.LENGTH_SHORT).show();
-                }
+                final AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getApplication());
+                dialogXoa.setMessage("Bạn có muốn xóa không?");
+                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        KhoanThu khoanThu = khoanThuList.get(id);
+                        databaseKhoanThu.deleteThu(khoanThu.getId());
+                    }
+                });
+                dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                dialogXoa.show();
 
                 return false;
             }
         });
     }
 
-    public void updateListKhoanThu () {
-            khoanThuList.clear();
-            khoanThuList.addAll(databaseKhoanThu.getAllKhoanThu());
-            if (adapterThu != null) {
-                adapterThu.notifyDataSetChanged();
+    private void sapXepListView() {
+        Collections.sort(khoanThuList, new Comparator<KhoanThu>() {
+            @Override
+            public int compare(KhoanThu o1, KhoanThu o2) {
+                if (o1.getId() < o2.getId()) {
+                    return 1;
+                } else if (o1.getId() > o2.getId()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
             }
+        });
+    }
+
+    public void updateListKhoanThu() {
+        khoanThuList.clear();
+        khoanThuList.addAll(databaseKhoanThu.getAllKhoanThu());
+        if (adapterThu != null) {
+            adapterThu.notifyDataSetChanged();
         }
     }
+
+    private void tongThu() {
+        List<KhoanThu> lst = databaseKhoanThu.getAllKhoanThu();
+        long tienThu = 0;
+        for (KhoanThu kt : lst) {
+            tienThu = tienThu + Long.parseLong(kt.getSotien());
+        }
+        tv_TongThu.setText("" + formatVND(tienThu));
+    }
+
+    private String formatVND(long tiente) {
+        Locale loc = Locale.getDefault();
+        NumberFormat nf = NumberFormat.getCurrencyInstance(loc);
+        return nf.format(tiente);
+    }
+
+
+}
 

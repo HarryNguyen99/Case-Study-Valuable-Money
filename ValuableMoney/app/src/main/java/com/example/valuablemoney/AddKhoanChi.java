@@ -15,27 +15,32 @@ import android.widget.Toast;
 import com.example.valuablemoney.adapter.KhoanChiAdapter;
 import com.example.valuablemoney.data.DatabaseKhoanChi;
 import com.example.valuablemoney.model.KhoanChi;
+import com.example.valuablemoney.model.KhoanThu;
 
+import java.text.NumberFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class AddKhoanChi extends AppCompatActivity {
 
     Button btn_Them, btn_Huy, btn_sua;
+    TextView tv_tongChi;
     DatabaseKhoanChi databaseKhoanChi;
     EditText edt_LyDoChi, edt_SoTienChi, edt_id;
-    TextView tv_Chi;
     ListView lv_Chi;
     KhoanChiAdapter adapterChi;
     List<KhoanChi> khoanChiList;
 
     private void AnhXa() {
+        tv_tongChi = findViewById(R.id.tv_tienTongChi);
         edt_LyDoChi = findViewById(R.id.edt_LyDoChi);
         edt_SoTienChi = findViewById(R.id.edt_SoTienChi);
         edt_id = findViewById(R.id.edt_idChi);
         btn_Them = findViewById(R.id.btn_Them);
         btn_Huy = findViewById(R.id.btn_Huy);
         btn_sua = findViewById(R.id.btn_Sua);
-        tv_Chi = findViewById(R.id.tv_KhoanChi);
         lv_Chi = findViewById(R.id.lv_Chi);
         databaseKhoanChi = new DatabaseKhoanChi(this);
         khoanChiList = databaseKhoanChi.getAllKhoanChi();
@@ -49,10 +54,12 @@ public class AddKhoanChi extends AppCompatActivity {
 
         AnhXa();
         KhoanChi();
+        sapXepListView ();
         Huy();
         setAdapterChi();
         editKhoanChi();
         deleteChi ();
+        tongChi();
     }
 
     private void Huy() {
@@ -74,10 +81,11 @@ public class AddKhoanChi extends AppCompatActivity {
                 if (khoanChi != null) {
                     databaseKhoanChi.addKhoanChi(khoanChi);
                 }
-
                 khoanChiList.clear();
                 khoanChiList.addAll(databaseKhoanChi.getAllKhoanChi());
+                sapXepListView ();
                 setAdapterChi();
+                tongChi();
 
                 edt_LyDoChi.getText().clear();
                 edt_SoTienChi.getText().clear();
@@ -89,11 +97,16 @@ public class AddKhoanChi extends AppCompatActivity {
     }
 
     private KhoanChi createKhoanChi() {
-
+        KhoanChi khoanChi = null;
         String lydochi = edt_LyDoChi.getText().toString();
         String sotienchi = edt_SoTienChi.getText().toString();
-
-        KhoanChi khoanChi = new KhoanChi(lydochi, sotienchi);
+        if (lydochi.equals("") || sotienchi.equals("")){
+            Toast.makeText(this, "Không để để trống", Toast.LENGTH_SHORT).show();
+        }else if (Integer.parseInt(sotienchi) <= 0){
+            Toast.makeText(this, "Nhập sai số tiền", Toast.LENGTH_SHORT).show();
+        }else {
+            khoanChi = new KhoanChi(lydochi, sotienchi);
+        }
         return khoanChi;
     }
 
@@ -103,7 +116,6 @@ public class AddKhoanChi extends AppCompatActivity {
             lv_Chi.setAdapter(adapterChi);
         }else {
             adapterChi.notifyDataSetChanged();
-            lv_Chi.setSelection(adapterChi.getCount()-1);
         }
 
     }
@@ -131,6 +143,8 @@ public class AddKhoanChi extends AppCompatActivity {
                 int result = databaseKhoanChi.EditKhoanChi(khoanChi);
                 if (result > 0) {
                     updateListKhoanChi();
+                    sapXepListView();
+                    tongChi();
                     edt_id.getText().clear();
                     edt_LyDoChi.getText().clear();
                     edt_SoTienChi.getText().clear();
@@ -163,11 +177,41 @@ public class AddKhoanChi extends AppCompatActivity {
         });
     }
 
+    private void sapXepListView (){
+        Collections.sort(khoanChiList, new Comparator<KhoanChi>() {
+            @Override
+            public int compare(KhoanChi o1, KhoanChi o2) {
+                if (o1.getId() < o2.getId()){
+                    return 1;
+                }else if (o1.getId() > o2.getId()){
+                    return -1;
+                }else {
+                    return 0;
+                }
+            }
+        });
+    }
+
     public void updateListKhoanChi() {
         khoanChiList.clear();
         khoanChiList.addAll(databaseKhoanChi.getAllKhoanChi());
         if (adapterChi != null) {
             adapterChi.notifyDataSetChanged();
         }
+    }
+
+    private void tongChi() {
+        List<KhoanChi> listKC = databaseKhoanChi.getAllKhoanChi();
+        long tienChi = 0;
+        for (KhoanChi kc : listKC) {
+            tienChi = tienChi + Long.parseLong(kc.getSotienchi());
+        }
+        tv_tongChi.setText(formatVND(tienChi));
+    }
+
+    private String formatVND(long tiente) {
+        Locale loc = Locale.getDefault();
+        NumberFormat nf = NumberFormat.getCurrencyInstance(loc);
+        return nf.format(tiente);
     }
 }

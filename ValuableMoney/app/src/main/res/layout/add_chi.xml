@@ -4,12 +4,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tv_tongChi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng Chi:"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_tienTongChi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="10000000"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_themkhoanChi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="10dp"
         android:text="Thêm Khoản Chi"
         android:textColor="#FA0202"
         android:textSize="30sp"
@@ -19,7 +46,7 @@
         android:enabled="false"
         android:id="@+id/edt_idChi"
         android:layout_width="350dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/edt_khoanchi"
@@ -29,7 +56,7 @@
     <EditText
         android:id="@+id/edt_LyDoChi"
         android:layout_width="350dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/edt_khoanchi"
@@ -39,7 +66,7 @@
     <EditText
         android:id="@+id/edt_SoTienChi"
         android:layout_width="350dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/edt_khoanchi"

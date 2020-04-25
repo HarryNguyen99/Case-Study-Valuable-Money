@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.valuablemoney.model.KhoanChi;
 import com.example.valuablemoney.model.KhoanThu;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,12 +82,33 @@ public class DatabaseKhoanThu extends SQLiteOpenHelper {
         values.put(SOTIEN, khoanThu.getSotien());
         int number = db.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(khoanThu.getId())});
         if (number > 0)
-            Log.d(TAG,"EditKhoanThu Successfuly");
-            return number;
+            Log.d(TAG, "EditKhoanThu Successfuly");
+        return number;
     }
 
-    public int deleteThu(int id){
+    public int deleteThu(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, ID+"=?",new String[]{String.valueOf(id)});
+        return db.delete(TABLE_NAME, ID + "=?", new String[]{String.valueOf(id)});
     }
+
+//    public  int tongThu (){
+//        List<KhoanThu> listTongThu = new ArrayList<>();
+//        String selectQuery = "SELECT * FROM " + TABLE_NAME;
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//        if (cursor.moveToFirst()) {
+//            do {
+//                KhoanThu khoanThu = new KhoanThu();
+//                khoanThu.setSotien(cursor.getString(0));
+//                listTongThu.add(khoanThu);
+//
+//            } while (cursor.moveToNext());
+//        }
+//
+//        int sun += Integer.parseInt(String.valueOf(listTongThu));
+//
+//        db.close();
+//        return listKhoanThu;
+//    }
+
 }

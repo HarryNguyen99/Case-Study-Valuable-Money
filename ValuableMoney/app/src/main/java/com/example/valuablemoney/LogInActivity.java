@@ -59,6 +59,8 @@ public class LogInActivity extends AppCompatActivity {
                         Toast.makeText(LogInActivity.this, "ok", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
+                        edt_user.getText().clear();
+                        edt_pass.getText().clear();
                     }else {
                         Toast.makeText(LogInActivity.this, "sai user hoặc pass", Toast.LENGTH_SHORT).show();
                     }

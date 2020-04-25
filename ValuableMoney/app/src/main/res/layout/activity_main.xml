@@ -4,21 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="5"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FBAFF9">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.2"
-        android:background="#FBAFF9"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tổng quan"
+            android:gravity="center"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="#000000"
@@ -28,8 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="3"
-            android:paddingTop="10dp">
+            android:layout_weight="1"
+            android:paddingTop="20dp"
+            >
 
             <TextView
                 android:layout_width="0dp"
@@ -51,22 +53,13 @@
                 android:textColor="#09EF12"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:gravity="right"
-                android:text="VNĐ"
-                android:textColor="#09EF12"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="3">
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="0dp"
@@ -88,15 +81,6 @@
                 android:textColor="#EF0909"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:gravity="right"
-                android:text="VNĐ"
-                android:textColor="#EF0909"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -104,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="3">
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="0dp"
@@ -126,15 +110,6 @@
                 android:textColor="#092FEF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:gravity="right"
-                android:text="VNĐ"
-                android:textColor="#092FEF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -144,7 +119,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <Button
@@ -173,31 +150,6 @@
             android:background="@drawable/button_chi"
             android:textColorHint="#ffffff"
             android:textSize="20sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3.8"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thu Chi Gần Đây"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:gravity="center"
-            android:padding="10dp"
-            />
-
-        <ListView
-            android:id="@+id/lv_ThuChi"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="5dp"/>
 
     </LinearLayout>
 

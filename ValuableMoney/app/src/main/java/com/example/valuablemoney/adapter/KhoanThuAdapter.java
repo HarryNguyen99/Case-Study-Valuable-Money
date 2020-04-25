@@ -1,6 +1,5 @@
 package com.example.valuablemoney.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,11 @@ import android.widget.TextView;
 import com.example.valuablemoney.AddKhoanThu;
 import com.example.valuablemoney.model.KhoanThu;
 import com.example.valuablemoney.R;
+
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 
 public class KhoanThuAdapter extends BaseAdapter {
@@ -38,7 +41,7 @@ public class KhoanThuAdapter extends BaseAdapter {
 
     private class ViewHolder{
         TextView tv_NguonThu, tv_TienThu;
-        ImageView img_editThu, img_deleteThu;
+       ImageView img_deleteThu;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class KhoanThuAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.tv_NguonThu = (TextView) view.findViewById(R.id.tv_NguonThu);
             holder.tv_TienThu = (TextView) view.findViewById(R.id.tv_TienThu);
-            holder.img_editThu = (ImageView) view.findViewById(R.id.img_editThu);
+//            holder.img_editThu = (ImageView) view.findViewById(R.id.img_editThu);
             holder.img_deleteThu = (ImageView) view.findViewById(R.id.img_deleteThu);
             view.setTag(holder);
         }else {
@@ -65,11 +68,17 @@ public class KhoanThuAdapter extends BaseAdapter {
         final KhoanThu khoanThu = khoanThuList.get(position);
 
         holder.tv_NguonThu.setText(khoanThu.getNguonthu());
-        holder.tv_TienThu.setText((CharSequence) khoanThu.getSotien());
+        holder.tv_TienThu.setText(formatVND(Long.parseLong(khoanThu.getSotien())));
 
         return view;
     }
 
+    private String formatVND(long tien){
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+        format.setRoundingMode(RoundingMode.HALF_UP);
+        return format.format(tien);
+    }
 
 
 }
