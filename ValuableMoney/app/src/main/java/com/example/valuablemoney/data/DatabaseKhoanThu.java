@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseKhoanThu extends SQLiteOpenHelper {
-    private final String TAG = "DatabaseKhoanThu";
     private static final String DATABASE_NAME = "khoanthu_manager";
     private static final String TABLE_NAME = "khoanthu";
     private static final String ID = "id";
@@ -30,18 +29,15 @@ public class DatabaseKhoanThu extends SQLiteOpenHelper {
 
     public DatabaseKhoanThu(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
-        Log.d(TAG, "DatabaseKhoanThu");
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQLQuery);
-        Log.d(TAG, "onCreate");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, "onUpgrade");
     }
 
     public void addKhoanThu(KhoanThu khoanthu) {
@@ -51,7 +47,6 @@ public class DatabaseKhoanThu extends SQLiteOpenHelper {
         values.put(SOTIEN, khoanthu.getSotien());
         db.insert(TABLE_NAME, null, values);
         db.close();
-        Log.d(TAG, "addKhoanThu Successfuly");
     }
 
     public List<KhoanThu> getAllKhoanThu() {
@@ -81,8 +76,6 @@ public class DatabaseKhoanThu extends SQLiteOpenHelper {
         values.put(NGUONTHU, khoanThu.getNguonthu());
         values.put(SOTIEN, khoanThu.getSotien());
         int number = db.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(khoanThu.getId())});
-        if (number > 0)
-            Log.d(TAG, "EditKhoanThu Successfuly");
         return number;
     }
 
@@ -90,25 +83,5 @@ public class DatabaseKhoanThu extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME, ID + "=?", new String[]{String.valueOf(id)});
     }
-
-//    public  int tongThu (){
-//        List<KhoanThu> listTongThu = new ArrayList<>();
-//        String selectQuery = "SELECT * FROM " + TABLE_NAME;
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                KhoanThu khoanThu = new KhoanThu();
-//                khoanThu.setSotien(cursor.getString(0));
-//                listTongThu.add(khoanThu);
-//
-//            } while (cursor.moveToNext());
-//        }
-//
-//        int sun += Integer.parseInt(String.valueOf(listTongThu));
-//
-//        db.close();
-//        return listKhoanThu;
-//    }
 
 }

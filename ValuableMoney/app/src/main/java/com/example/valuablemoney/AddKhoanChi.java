@@ -59,11 +59,11 @@ public class AddKhoanChi extends AppCompatActivity {
 
         AnhXa();
         KhoanChi();
-        sapXepListView ();
+        sapXepListView();
         Huy();
         setAdapterChi();
         editKhoanChi();
-        deleteChi ();
+        deleteChi();
         tongChi();
     }
 
@@ -88,7 +88,7 @@ public class AddKhoanChi extends AppCompatActivity {
                 }
                 khoanChiList.clear();
                 khoanChiList.addAll(databaseKhoanChi.getAllKhoanChi());
-                sapXepListView ();
+                sapXepListView();
                 setAdapterChi();
                 tongChi();
 
@@ -98,34 +98,33 @@ public class AddKhoanChi extends AppCompatActivity {
         });
 
 
-
     }
 
     private KhoanChi createKhoanChi() {
         KhoanChi khoanChi = null;
         String lydochi = edt_LyDoChi.getText().toString();
         String sotienchi = edt_SoTienChi.getText().toString();
-        if (lydochi.equals("") || sotienchi.equals("")){
-            Toast.makeText(this, "Không để để trống", Toast.LENGTH_SHORT).show();
-        }else if (Integer.parseInt(sotienchi) <= 0){
+        if (lydochi.equals("") || sotienchi.equals("")) {
+            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
+        } else if (Integer.parseInt(sotienchi) <= 0) {
             Toast.makeText(this, "Nhập sai số tiền", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             khoanChi = new KhoanChi(lydochi, sotienchi);
         }
         return khoanChi;
     }
 
-    private void setAdapterChi(){
-        if (adapterChi == null){
-            adapterChi = new KhoanChiAdapter(this,R.layout.dong_chi, khoanChiList);
+    private void setAdapterChi() {
+        if (adapterChi == null) {
+            adapterChi = new KhoanChiAdapter(this, R.layout.dong_chi, khoanChiList);
             lv_Chi.setAdapter(adapterChi);
-        }else {
+        } else {
             adapterChi.notifyDataSetChanged();
         }
 
     }
 
-    private void editKhoanChi(){
+    private void editKhoanChi() {
         lv_Chi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -143,8 +142,8 @@ public class AddKhoanChi extends AppCompatActivity {
             public void onClick(View v) {
                 KhoanChi khoanChi = new KhoanChi();
                 khoanChi.setId(Integer.parseInt(String.valueOf(edt_id.getText())));
-                khoanChi.setLydochi(edt_LyDoChi.getText()+"");
-                khoanChi.setSotienchi(edt_SoTienChi.getText()+"");
+                khoanChi.setLydochi(edt_LyDoChi.getText() + "");
+                khoanChi.setSotienchi(edt_SoTienChi.getText() + "");
                 int result = databaseKhoanChi.EditKhoanChi(khoanChi);
                 if (result > 0) {
                     updateListKhoanChi();
@@ -155,7 +154,7 @@ public class AddKhoanChi extends AppCompatActivity {
                     edt_SoTienChi.getText().clear();
                     btn_Them.setEnabled(true);
                     btn_sua.setEnabled(false);
-                }else {
+                } else {
                     btn_Them.setEnabled(true);
                     btn_sua.setEnabled(false);
                 }
@@ -163,7 +162,7 @@ public class AddKhoanChi extends AppCompatActivity {
         });
     }
 
-    private void deleteChi (){
+    private void deleteChi() {
         lv_Chi.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -191,15 +190,15 @@ public class AddKhoanChi extends AppCompatActivity {
         });
     }
 
-    private void sapXepListView (){
+    private void sapXepListView() {
         Collections.sort(khoanChiList, new Comparator<KhoanChi>() {
             @Override
             public int compare(KhoanChi o1, KhoanChi o2) {
-                if (o1.getId() < o2.getId()){
+                if (o1.getId() < o2.getId()) {
                     return 1;
-                }else if (o1.getId() > o2.getId()){
+                } else if (o1.getId() > o2.getId()) {
                     return -1;
-                }else {
+                } else {
                     return 0;
                 }
             }

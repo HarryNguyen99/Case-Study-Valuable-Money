@@ -32,7 +32,6 @@ import java.util.Locale;
 public class AddKhoanThu extends AppCompatActivity {
     TextView tv_TongThu;
     Button btn_Them, btn_Huy, btn_XacNhan;
-    ImageView img_Delete;
     DatabaseKhoanThu databaseKhoanThu;
     EditText edt_Nguonthu, edt_sotien, edit_Id;
     ListView lv_Thu;
@@ -107,7 +106,7 @@ public class AddKhoanThu extends AppCompatActivity {
         String nguonthu = edt_Nguonthu.getText().toString();
         String sotien = edt_sotien.getText().toString();
         if (nguonthu.equals("") || sotien.equals("")) {
-            Toast.makeText(this, "Không để để trống", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
         } else if (Integer.parseInt(sotien) <= 0) {
             Toast.makeText(this, "Nhập sai số tiền", Toast.LENGTH_SHORT).show();
         } else {
@@ -170,10 +169,10 @@ public class AddKhoanThu extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-               dialogXoa.setMessage("Bạn có muốn xóa không?");
-               dialogXoa.setCancelable(false);
-               dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                   @Override
+                dialogXoa.setMessage("Bạn có muốn xóa không?");
+                dialogXoa.setCancelable(false);
+                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int id) {
                         KhoanThu khoanThu = khoanThuList.get(position);
                         databaseKhoanThu.deleteThu(khoanThu.getId());

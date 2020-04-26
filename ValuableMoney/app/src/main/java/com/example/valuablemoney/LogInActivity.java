@@ -48,22 +48,22 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
-    private void Signin(){
+    private void Signin() {
         btn_SignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    String user = edt_user.getText().toString();
-                    String pass = edt_pass.getText().toString();
-                    Boolean chkAcc = db.checkAcc(user,pass);
-                    if (chkAcc){
-                        Toast.makeText(LogInActivity.this, "ok", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        edt_user.getText().clear();
-                        edt_pass.getText().clear();
-                    }else {
-                        Toast.makeText(LogInActivity.this, "sai user hoặc pass", Toast.LENGTH_SHORT).show();
-                    }
+                String user = edt_user.getText().toString();
+                String pass = edt_pass.getText().toString();
+                Boolean chkAcc = db.checkAcc(user, pass);
+                if (chkAcc) {
+                    Toast.makeText(LogInActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    edt_user.getText().clear();
+                    edt_pass.getText().clear();
+                } else {
+                    Toast.makeText(LogInActivity.this, "sai user hoặc pass", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

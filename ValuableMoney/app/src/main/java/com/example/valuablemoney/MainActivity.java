@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseKhoanThu databaseKhoanThu;
     DatabaseKhoanChi databaseKhoanChi;
 
-    private void AnhXa(){
+    private void AnhXa() {
         tv_Thu = findViewById(R.id.tv_KhoanThu);
         tv_Chi = findViewById(R.id.tv_KhoanChi);
         tvConLai = findViewById(R.id.tv_ConLai);
@@ -48,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
         soTienConLai();
     }
 
-    private void KhoanThu(){
+    private void KhoanThu() {
 
         btn_Thu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),AddKhoanThu.class);
+                Intent intent = new Intent(getApplicationContext(), AddKhoanThu.class);
                 startActivity(intent);
 
             }
@@ -61,17 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void KhoanChi(){
+    private void KhoanChi() {
         btn_Chi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),AddKhoanChi.class);
+                Intent intent = new Intent(getApplicationContext(), AddKhoanChi.class);
                 startActivity(intent);
             }
         });
     }
 
-    public void tongThu(){
+    public void tongThu() {
         List<KhoanThu> lstThu = databaseKhoanThu.getAllKhoanThu();
         long tienThu = 0;
         for (KhoanThu kt : lstThu) {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     public void tongChi() {
         List<KhoanChi> lstChi = databaseKhoanChi.getAllKhoanChi();
         long tienChi = 0;
-        for (KhoanChi kc : lstChi){
+        for (KhoanChi kc : lstChi) {
             tienChi = tienChi + Long.parseLong(kc.getSotienchi());
         }
         tv_Chi.setText(formatVND(tienChi));
@@ -98,19 +98,19 @@ public class MainActivity extends AppCompatActivity {
 
         List<KhoanChi> lstChi = databaseKhoanChi.getAllKhoanChi();
         long tienChi = 0;
-        for (KhoanChi kc : lstChi){
+        for (KhoanChi kc : lstChi) {
             tienChi = tienChi + Long.parseLong(kc.getSotienchi());
         }
 
-        long conLai = tienThu -tienChi;
+        long conLai = tienThu - tienChi;
         tvConLai.setText(formatVND(conLai));
     }
 
-    private String formatVND(long tien){
-          Locale locale = new Locale("vi", "VN");
-          NumberFormat format = NumberFormat.getCurrencyInstance(locale);
-          format.setRoundingMode(RoundingMode.HALF_UP);
-          return format.format(tien);
+    private String formatVND(long tien) {
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+        format.setRoundingMode(RoundingMode.HALF_UP);
+        return format.format(tien);
     }
 
 }

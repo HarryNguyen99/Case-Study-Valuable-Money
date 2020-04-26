@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseKhoanChi extends SQLiteOpenHelper {
-    private final String TAG = "DatabaseKhoanChi";
     private static final String DATABASE_NAME = "khoanchi_manager";
     private static final String TABLE_NAME = "khoanchi";
     private static final String ID = "id";
@@ -29,18 +28,15 @@ public class DatabaseKhoanChi extends SQLiteOpenHelper {
 
     public DatabaseKhoanChi(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
-        Log.d(TAG, "DatabaseKhoanChi");
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQLQuery);
-        Log.d(TAG, "onCreate");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, "onUpgrade");
     }
 
     public void addKhoanChi(KhoanChi khoanchi) {
@@ -50,7 +46,6 @@ public class DatabaseKhoanChi extends SQLiteOpenHelper {
         values.put(SOTIENCHI, khoanchi.getSotienchi());
         db.insert(TABLE_NAME, null, values);
         db.close();
-        Log.d(TAG, "addKhoanThu Successfuly");
     }
 
     public List<KhoanChi> getAllKhoanChi(){
@@ -80,8 +75,6 @@ public class DatabaseKhoanChi extends SQLiteOpenHelper {
         values.put(LYDOCHI, khoanChi.getLydochi());
         values.put(SOTIENCHI, khoanChi.getSotienchi());
         int number = db.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(khoanChi.getId())});
-        if (number > 0)
-            Log.d(TAG,"EditKhoanChi Successfuly");
         return number;
     }
 
