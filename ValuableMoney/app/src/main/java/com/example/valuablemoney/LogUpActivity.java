@@ -66,6 +66,7 @@ public class LogUpActivity extends AppCompatActivity {
             Toast.makeText(this, "không được để trống", Toast.LENGTH_SHORT).show();
         }else if (pass1.equals(pass2)){
             accountSignUp = new AccountSignUp(user,pass1,pass2);
+            Toast.makeText(this, "đăng ký thành công", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(this, "paas không giống nhau.", Toast.LENGTH_SHORT).show();

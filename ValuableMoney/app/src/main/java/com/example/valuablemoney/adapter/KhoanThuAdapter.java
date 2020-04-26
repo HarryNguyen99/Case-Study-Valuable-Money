@@ -41,7 +41,6 @@ public class KhoanThuAdapter extends BaseAdapter {
 
     private class ViewHolder{
         TextView tv_NguonThu, tv_TienThu;
-       ImageView img_deleteThu;
     }
 
     @Override
@@ -58,8 +57,6 @@ public class KhoanThuAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.tv_NguonThu = (TextView) view.findViewById(R.id.tv_NguonThu);
             holder.tv_TienThu = (TextView) view.findViewById(R.id.tv_TienThu);
-//            holder.img_editThu = (ImageView) view.findViewById(R.id.img_editThu);
-            holder.img_deleteThu = (ImageView) view.findViewById(R.id.img_deleteThu);
             view.setTag(holder);
         }else {
             holder = (ViewHolder) view.getTag();

@@ -38,13 +38,13 @@ public class AddKhoanThu extends AppCompatActivity {
     ListView lv_Thu;
     KhoanThuAdapter adapterThu;
     List<KhoanThu> khoanThuList;
+    AlertDialog.Builder dialogXoa;
 
     private void AnhXa() {
         tv_TongThu = findViewById(R.id.tv_TongThu);
         edt_Nguonthu = findViewById(R.id.edt_nguonthu);
         edt_sotien = findViewById(R.id.edt_sotien);
         edit_Id = findViewById(R.id.edt_id);
-        img_Delete = findViewById(R.id.img_deleteThu);
         btn_Them = findViewById(R.id.btn_Them);
         btn_Huy = findViewById(R.id.btn_Huy);
         btn_XacNhan = findViewById(R.id.btn_XacNhan);
@@ -52,6 +52,7 @@ public class AddKhoanThu extends AppCompatActivity {
         lv_Thu = findViewById(R.id.lv_Thu);
         khoanThuList = databaseKhoanThu.getAllKhoanThu();
         lv_Thu.setAdapter(adapterThu);
+        dialogXoa = new AlertDialog.Builder(this);
 
     }
 
@@ -168,18 +169,23 @@ public class AddKhoanThu extends AppCompatActivity {
         lv_Thu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                final AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getApplication());
-                dialogXoa.setMessage("Bạn có muốn xóa không?");
-                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
+
+               dialogXoa.setMessage("Bạn có muốn xóa không?");
+               dialogXoa.setCancelable(false);
+               dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                   @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        KhoanThu khoanThu = khoanThuList.get(id);
+                        KhoanThu khoanThu = khoanThuList.get(position);
                         databaseKhoanThu.deleteThu(khoanThu.getId());
+                        updateListKhoanThu();
+                        tongThu();
+                        sapXepListView();
                     }
                 });
                 dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 });
                 dialogXoa.show();
@@ -222,11 +228,10 @@ public class AddKhoanThu extends AppCompatActivity {
     }
 
     private String formatVND(long tiente) {
-        Locale loc = Locale.getDefault();
-        NumberFormat nf = NumberFormat.getCurrencyInstance(loc);
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(locale);
         return nf.format(tiente);
     }
-
 
 }
 

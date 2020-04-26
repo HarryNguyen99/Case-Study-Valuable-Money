@@ -31,34 +31,4 @@
 
     </LinearLayout>
 
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_weight="2"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        android:gravity="center"-->
-    <!--        >-->
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/img_editChi"-->
-    <!--            android:layout_width="40dp"-->
-    <!--            android:layout_height="40dp"-->
-    <!--            android:layout_marginRight="10dp"-->
-    <!--            android:src="@mipmap/ic_edit"-->
-    <!--            android:background="#F4D300"-->
-    <!--            android:layout_gravity="center_vertical"-->
-    <!--            android:padding="10dp"/>-->
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/img_deleteChi"-->
-    <!--            android:layout_width="40dp"-->
-    <!--            android:layout_height="40dp"-->
-    <!--            android:src="@mipmap/ic_delete"-->
-    <!--            android:background="#FA0303"-->
-    <!--            android:layout_gravity="center_vertical"-->
-    <!--            android:padding="10dp"/>-->
-
-    <!--    </LinearLayout>-->
-
-
 </LinearLayout>

@@ -2,6 +2,9 @@ package com.example.valuablemoney;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +35,7 @@ public class AddKhoanChi extends AppCompatActivity {
     ListView lv_Chi;
     KhoanChiAdapter adapterChi;
     List<KhoanChi> khoanChiList;
+    AlertDialog.Builder dialogXoa;
 
     private void AnhXa() {
         tv_tongChi = findViewById(R.id.tv_tienTongChi);
@@ -45,6 +49,7 @@ public class AddKhoanChi extends AppCompatActivity {
         databaseKhoanChi = new DatabaseKhoanChi(this);
         khoanChiList = databaseKhoanChi.getAllKhoanChi();
         lv_Chi.setAdapter(adapterChi);
+        dialogXoa = new AlertDialog.Builder(this);
     }
 
     @Override
@@ -161,17 +166,26 @@ public class AddKhoanChi extends AppCompatActivity {
     private void deleteChi (){
         lv_Chi.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                KhoanChi khoanChi = khoanChiList.get(position);
-                int result = databaseKhoanChi.deleteChi(khoanChi.getId());
-                if (result > 0) {
-                    Toast.makeText(AddKhoanChi.this, "Đã Xóa " + khoanChi.getLydochi()
-                            + " Thành Công", Toast.LENGTH_SHORT).show();
-                    updateListKhoanChi();
-                }else {
-                    Toast.makeText(AddKhoanChi.this, "Xóa " + khoanChi.getLydochi()
-                            + " Thất Bại", Toast.LENGTH_SHORT).show();
-                }
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                dialogXoa.setMessage("Bạn có muốn xóa không?");
+                dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        KhoanChi khoanChi = khoanChiList.get(position);
+                        databaseKhoanChi.deleteChi(khoanChi.getId());
+                        updateListKhoanChi();
+                        tongChi();
+                        sapXepListView();
+                    }
+                });
+                dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialogXoa.show();
+
                 return false;
             }
         });
@@ -210,8 +224,8 @@ public class AddKhoanChi extends AppCompatActivity {
     }
 
     private String formatVND(long tiente) {
-        Locale loc = Locale.getDefault();
-        NumberFormat nf = NumberFormat.getCurrencyInstance(loc);
+        Locale locale = new Locale("vi", "VN");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(locale);
         return nf.format(tiente);
     }
 }
